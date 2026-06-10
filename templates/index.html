@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing Website Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🛡️ Phishing Website Detector</h1>
+
+    <p class="subtitle">
+        Enter a website URL to check if it is phishing.
+    </p>
+
+    <form method="POST" action="/predict" class="search-form">
+
+        <input
+            type="text"
+            name="url"
+            placeholder="https://example.com"
+            required
+        >
+
+        <button type="submit">
+            Check Website
+        </button>
+
+    </form>
+
+    {% if result %}
+
+    <div class="dashboard">
+
+        <div class="assessment-card">
+
+            <div class="card-header">
+                Website Assessment
+            </div>
+
+            <div class="card-content">
+
+                <h4>URL</h4>
+                <p>{{ entered_url }}</p>
+
+                <h4>Status</h4>
+                <p>{{ result }}</p>
+
+                <h4>Confidence</h4>
+                <p>{{ confidence }}%</p>
+
+            </div>
+
+        </div>
+
+        <div class="security-card">
+
+            <div class="card-header">
+                Security Indicators
+            </div>
+
+            <div class="card-content">
+
+                <ul class="security-list">
+                    {% for item in analysis %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
